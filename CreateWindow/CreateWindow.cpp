@@ -2,11 +2,17 @@
 //
 
 #include "stdafx.h"
+#include<stdlib.h>
 #include "CreateWindow.h"
+#include<time.h>
+#include<memory>
 #include<vector>
 using std::vector;
 #define MAX_LOADSTRING 100
 #define WM_START WM_USER+1
+#define WM_TIMER    000
+
+
 // Global Variables:
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
@@ -17,6 +23,7 @@ INT radioCheck = 1;
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
+INT				randomNumbInStr();
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    CountOfButton(HWND, UINT, WPARAM, LPARAM);
@@ -27,6 +34,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+	srand(time(NULL));
 	hInst = hInstance;
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -57,16 +65,73 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	//static INT radioCheck;
 	static HWND hBut1, hBut2, hBut3, hBut4, hBut5, hBut6, hBut7, hBut8, hBut9, hBut10, hBut11, hBut12, hBut13, hBut14, hBut15, hBut16;
 	static vector<HWND> hBut;
+	//static vector<std::shared_ptr<HWND>> hBut;
+	//std::shared_ptr<TCHAR*> tmp;
 	UNREFERENCED_PARAMETER(lParam);
     switch (message)
 	{
     case WM_INITDIALOG:
 	//	radioCheck = 1;
-
+		
 		//CreateWindow()
         return (INT_PTR)TRUE;
 	case WM_START:{
-		MessageBox(hDlg, L"Yes", L"yees", MB_OK);
+		//MessageBox(hDlg, L"Yes", L"yees", MB_OK);
+		if (radioCheck == 1) {
+			for (int i = 1; i < 10; ++i) {
+				INT num = randomNumbInStr();
+				TCHAR buf[5];
+				_stprintf_s(buf, _T("%d"), num);
+				if (i == 1)
+					x = 10;
+				else if (i == 4 || i == 7) {					
+					y += 80;
+					x = 10;
+				}
+				else
+					x += 80;
+				hBut.push_back((CreateWindow(L"BUTTON", buf, WS_CHILD | WS_VISIBLE | WS_TABSTOP, x, y, nWidth, nHeight, hDlg, NULL, hInst, NULL)));
+			}
+		}
+
+
+		else if (radioCheck == 2) {
+			INT num = randomNumbInStr();
+			TCHAR buf[5];
+			_stprintf_s(buf, _T("%d"), num);
+			nWidth = 50; nHeight = 50;
+			for (int i = 1; i < 17; ++i) {
+				if (i == 1)
+					x = 10;
+				else if (i == 5 || i == 9||i==13) {					
+					y += 60;
+					x = 10;
+				}
+				else
+					x += 60;
+				hBut.push_back((CreateWindow(L"BUTTON", buf, WS_CHILD | WS_VISIBLE | WS_TABSTOP, x, y, nWidth, nHeight, hDlg, NULL, hInst, NULL)));
+			}
+		}
+
+
+		else if (radioCheck == 3) {
+			nWidth = 40; nHeight = 40;
+			for (int i = 1; i < 26; ++i) {
+				INT num = randomNumbInStr();
+				TCHAR buf[5];
+				_stprintf_s(buf, _T("%d"), num);
+				if (i == 1)
+					x = 10;
+				else if (i == 6 || i == 11 || i == 16 || i == 21) {					
+					y += 50;
+					x = 10;
+				}
+				else
+					x += 50;
+				hBut.push_back((CreateWindow(L"BUTTON", buf, WS_CHILD | WS_VISIBLE | WS_TABSTOP, x, y, nWidth, nHeight, hDlg, NULL, hInst, NULL)));
+			}
+		}
+		return (INT_PTR)TRUE;
 		}
 	case WM_CLOSE:
 	{
@@ -77,35 +142,21 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND: 
 	
 	{
+		/////////////////////////////////////////////////ttttiiiiiimmmmmmmeeeeeeerrrrrrr
+		/*switch (LOWORD(wParam))
+		{
+			
+		}*/
+
+
 		if(LOWORD(wParam) == IDC_BUTTON1)
 		{
 
 			cntOfButt = CreateDialog(hInst, MAKEINTRESOURCE(IDD_DIALOG2), hDlg, CountOfButton);
 			ShowWindow(cntOfButt, SW_SHOW);
-			if (radioCheck == 1) {
-				for (int i = 1; i < 10;++i) {
-					if (i == 4||) {					//////////тут доробити
-						y += 80;
-					}
-					hBut.push_back((CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, x, y, nWidth, nHeight, hDlg, NULL, hInst, NULL)));
-				}
-			}
-			/*hBut1 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 70, 10, 70, 70, hDlg, NULL, hInst, NULL);
-			hBut2 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 150, 10, 70, 70, hDlg, NULL, hInst, NULL);
-			hBut3 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 220, 10, 70, 70, hDlg, NULL, hInst, NULL);
-			hBut4 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 280, 10, 70, 70, hDlg, NULL, hInst, NULL);
-			hBut5 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut6 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut7 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut8 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut9 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut10 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut11 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut12 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut13 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut14 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut15 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);
-			hBut16 = CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP, 10, 10, 50, 50, hDlg, NULL, hInst, NULL);*/
+
+			
+
 
 		return (INT_PTR)TRUE;}
 
@@ -173,4 +224,8 @@ INT_PTR CALLBACK    CountOfButton(HWND hDlg, UINT message, WPARAM wParam, LPARAM
 		break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+INT	randomNumbInStr() {
+	return{ (rand()%100+1) };
 }
