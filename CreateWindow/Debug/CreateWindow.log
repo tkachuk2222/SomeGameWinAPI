@@ -1,6 +1,4 @@
 ﻿  CreateWindow.cpp
-d:\навчання\visual studio 2015\createwindow\createwindow\createwindow.cpp(13): warning C4005: WM_TIMER: изменение макроопределения
-  c:\program files (x86)\windows kits\8.1\include\um\winuser.h(2101): note: см. предыдущее определение "WM_TIMER"
-d:\навчання\visual studio 2015\createwindow\createwindow\createwindow.cpp(37): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\навчання\visual studio 2015\createwindow\createwindow\createwindow.cpp(39): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   CreateWindow.vcxproj -> D:\навчання\Visual Studio 2015\CreateWindow\Debug\CreateWindow.exe
   CreateWindow.vcxproj -> D:\навчання\Visual Studio 2015\CreateWindow\Debug\CreateWindow.pdb (Full PDB)
